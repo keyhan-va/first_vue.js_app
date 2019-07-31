@@ -11,27 +11,39 @@
 
 <body>
 
-  <div class="container" id="app">
-    <div class="from-inline mr-auto">
-      <label class="font-weight-bold mr-2" for="formMax">max</label>
-        <input type="text" id="formMax" name="" class="form-control w-25" v-model="maximum">
-    </div>
-    <input type="range" class="custom-range" min="0" max="200" v-model="maximum">
+  <div id="app">
+<nav class="navbar navbar-light bg-light fixed-top"
+v-if="cart.length>0">
 
-    <div class="row d-flex mb-3 align-items-center" v-for="item in products" v-if="item.price<=Number(maximum)">
+  <div class="navbar-text ml-auto">
+    <b>cart:</b>
+     <span class="badge badge-pill badge-success">{{cart.length}}</span>
+  </div>
+</nav>
 
-
-
-      <div class="col-sm-4">
-        <img class="img-fluid d-block" :src="item.image" :alt="item.name">
-      </div>
-      <div class="col">
-        <h3 class="text-info">{{ item.name }}</h3>
-        <p class="mb-0">{{ item.description }}</p>
-        <div class="h5 float-right">${{item.price}}</div>
-      </div>
+ <div class="form-inline mr-auto mt-5">
+  <label class="font-weight-bold mr-2" for="formMax">max</label>
+   <input type="text" id="formMax" class="form-control w-25" v-model="maximum">
+ </div>
+ <input type="range" class="custom-range" min="0" max="200" v-model="maximum">
+  <div class="row d-flex mb-3 align-items-center"
+       v-for="item in products"
+       v-if="item.price<=Number(maximum)">
+   <div class="col-1 m-auto">
+    <button class="btn btn-info"
+    v-on:click="cart.push(item)">+</button>
+   </div>
+   <div class="col-4">
+    <img class="img-fluid d-block" :src="item.image" :alt="item.name">
+   </div>
+   <div class="col">
+     <h3 class="text-info">{{ item.name }}</h3>
+     <p class="mb-0">{{ item.description }}</p>
+     <div class="h5 float-right">${{ Number(item.price) }}</div>
     </div>
   </div>
+</div>
+
   <script src="app.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
